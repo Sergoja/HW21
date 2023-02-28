@@ -8,8 +8,7 @@ class Store(Storage):
 
     def add(self, name, quantity):
         if self.get_free_space() < quantity:
-            print('Нет места')
-            return
+            return 'Нет места'
 
         if name in self.__items:
             self.__items[name] += quantity
@@ -18,12 +17,10 @@ class Store(Storage):
 
     def remove(self, name, quantity):
         if name not in self.__items:
-            print('Нет такого')
-            return
+            return 'Нет такого'
 
         if self.__items[name] < quantity:
-            print('Не хватает товара')
-            return
+            return 'Не хватает товара'
 
         self.__items[name] -= quantity
 

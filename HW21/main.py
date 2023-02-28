@@ -45,11 +45,20 @@ def main():
 
         request = Request(request=user_input, storages=storages)
 
-        storages[request.departure].remove(request.product, request.quantity)
-        print(f'Курьер забрал {request.quantity} {request.product} из {request.departure}')
-
-        storages[request.destination].add(request.product, request.quantity)
-        print(f'{request.quantity} {request.product} доставлен в {request.destination}')
+        from_storage = storages[request.departure].remove(request.product, request.quantity)
+        if from_storage in ['Нет такого', 'Не хватает товара']:
+            print(f'{from_storage}\nУ курьера возникли трудности')
+            pass
+        else:
+            print(f'Курьер забрал {request.quantity} {request.product} из {request.departure}')
+            print(f'Курьер везёт {request.quantity} {request.product} из {request.departure}')
+            to_storage = storages[request.destination].add(request.product, request.quantity)
+            if to_storage in ['Слишком много разных товаров', 'Нет места']:
+                print(f'{to_storage}\nУ курьера возникли трудности, товар возвращен в {request.departure}')
+                storages[request.departure].add(request.product, request.quantity)
+                pass
+            else:
+                print(f'{request.quantity} {request.product} доставлен в {request.destination}')
 
 
 if __name__ == '__main__':
