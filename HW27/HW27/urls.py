@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+import ads.views
 from vacancies import views
 
 urlpatterns = [
@@ -24,4 +25,5 @@ urlpatterns = [
     path('hello/', views.hello),
     path('vacancy/', views.VacancyView.as_view()),
     path('vacancy/<int:pk>', views.VacancyDetailView.as_view()),
+    path('', ads.views.home)
 ]
